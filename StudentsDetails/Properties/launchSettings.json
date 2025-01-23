@@ -28,6 +28,14 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
+    "IIS": {
+      "commandName": "IIS",
+      "launchBrowser": true,
+      "launchUrl": "swagger",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    },
     "Container (Dockerfile)": {
       "commandName": "Docker",
       "launchBrowser": true,
@@ -47,6 +55,10 @@
     "iisExpress": {
       "applicationUrl": "http://localhost:46249",
       "sslPort": 44355
+    },
+    "iis": {
+      "applicationUrl": "https://www.studentsdataapi.com/",
+      "sslPort": 0
     }
   }
 }

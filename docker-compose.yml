@@ -1,0 +1,8 @@
+services:
+  studentsdetails:
+    image: ${DOCKER_REGISTRY-}studentsdetails
+    build:
+      context: .
+      dockerfile: StudentsDetails/Dockerfile
+    ports:
+      - 3030:8080

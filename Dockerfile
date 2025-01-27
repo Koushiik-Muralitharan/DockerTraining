@@ -5,7 +5,7 @@ FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 USER $APP_UID
 WORKDIR /app
 EXPOSE 8080
-
+EXPOSE 8081
 
 
 # This stage is used to build the service project
@@ -13,6 +13,8 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["StudentsDetails/StudentsDetails.csproj", "StudentsDetails/"]
+COPY ["Student.Data.Layer/Student.Data.Layer.csproj", "Student.Data.Layer/"]
+COPY ["Student.Shared/Student.Shared.csproj", "Student.Shared/"]
 RUN dotnet restore "./StudentsDetails/StudentsDetails.csproj"
 COPY . .
 WORKDIR "/src/StudentsDetails"
@@ -26,5 +28,6 @@ RUN dotnet publish "./StudentsDetails.csproj" -c $BUILD_CONFIGURATION -o /app/pu
 # This stage is used in production or when running from VS in regular mode (Default when not using the Debug configuration)
 FROM base AS final
 WORKDIR /app
+# We are copying everything from the app/publish (publish folder) to the app directory directly.
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "StudentsDetails.dll"]
